@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bill List</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 36px;
+            color: #ffdd00;
+        }
+
+        table {
+            width: 90%;
+            max-width: 1000px;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        th {
+            background-color: rgba(255, 221, 0, 0.9);
+            color: #000;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 221, 0, 0.2);
+        }
+
+        .btn-delete {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-delete:hover {
+            background-color: #e60000;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 12px;
+            color: #bbb;
+        }
+		.back-link {
+		            margin-top: 30px;
+		            color: #ffdd00;
+		            text-decoration: none;
+		            font-size: 16px;
+		 }
+		.back-link:hover {
+		            text-decoration: underline;
+		}
+    </style>
+</head>
+<body>
+
+    <h1>All Bills</h1>
+	<form th:action="@{/bills/search}" method="get" style="margin-bottom: 20px;">
+	    <input type="text" name="query" placeholder="Search by Bill ID or Customer ID" 
+	           style="padding: 10px; width: 300px; border-radius: 5px; border: none;">
+	    <button type="submit" 
+	            style="padding: 10px 20px; background-color: #ffdd00; color: black; border: none; border-radius: 5px; cursor: pointer;">
+	        Search
+	    </button>
+	</form>
+    <table>
+        <thead>
+            <tr>
+                <th>Bill ID</th>
+                <th>Meter Reading</th>
+                <th>Amount</th>
+                <th>Month</th>
+                <th>Year</th>
+                <th>Status</th>
+                <th>Customer ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bill : ${bills}">
+                <td th:text="${bill.billId}">1</td>
+                <td th:text="${bill.meterReading}">100.5</td>
+                <td th:text="${bill.billAmount}">500</td>
+                <td th:text="${bill.month}">July</td>
+                <td th:text="${bill.billYear}">2025</td>
+                <td th:text="${bill.status}">Paid</td>
+                <td th:text="${bill.customer.customerId}">C101</td>
+            </tr>
+        </tbody>
+    </table>
+	<a href="/admin" class="back-link">← Back to Admin Dashboard</a>
+    <div class="footer">
+        © 2025 Electricity Management System
+    </div>
+	
+</body>
+</html>

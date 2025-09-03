@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Bill</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        h2 {
+            color: #ffdd00;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #ffdd00;
+            border: none;
+            padding: 12px 25px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e6c700;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            display: inline-block;
+            color: #ffdd00;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Add Bill Details</h2>
+<div th:if="${message}" class="success">
+    <span th:text="${message}"></span>
+</div>
+
+<div th:if="${errorMessage}" style="color: red; font-weight: bold; margin-bottom: 20px;">
+    <span th:text="${errorMessage}"></span>
+</div>
+
+
+<form th:action="@{/addbill}" th:object="${bill}" method="post">
+    
+	<label>Meter Reading</label>
+	<input type="number" th:field="*{meterReading}" step="0.01" min="100" required />
+	<div th:if="${#fields.hasErrors('meterReading')}" style="color: red;">
+	    <p th:errors="*{meterReading}"></p>
+	</div>
+
+	<label>Bill Amount</label>
+	<input type="number" th:field="*{billAmount}" step="0.01" min="100" required />
+	<div th:if="${#fields.hasErrors('billAmount')}" style="color: red;">
+	    <p th:errors="*{billAmount}"></p>
+	</div>
+
+
+	<label>Customer</label>
+	<select name="customerId" required>
+	    <option value="">-- Select Customer --</option>
+	    <th:block th:each="cust : ${customers}">
+	        <option th:value="${cust.customerId}" 
+	                th:text="${cust.name + ' (ID: ' + cust.customerId + ')'}"></option>
+	    </th:block>
+	</select>
+
+
+    <label>Month</label>
+	<select name="month" id="month" required>
+	                <option value="">-- Select Month --</option>
+	                <option value="July">July</option>
+	                <option value="August">August</option>
+	            </select>
+
+    <label>Year</label>
+	<select name="billYear" id="year" required>
+	               <option value="2025">2025</option>
+	           </select>
+
+    <label>Status</label>
+	<select name="status" id="status" required>
+	                <option value="">-- Select Status --</option>
+	                <option value="Unpaid">Unpaid</option >
+	                <option value="Partial">Partial</option>
+	            </select>
+
+    <button type="submit">Add Bill</button>
+</form>
+
+<a href="/admin" class="back-link">← Back to Admin Dashboard</a>
+
+</body>
+</html>

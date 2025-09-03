@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Electricity Bills</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #2d3436, #000000);
+            color: #ecf0f1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #f6e58d;
+        }
+
+        table {
+            width: 90%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background-color: #1e272e;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 14px 20px;
+            text-align: center;
+            border-bottom: 1px solid #2d3436;
+        }
+
+        th {
+            background-color: #f6e58d;
+            color: #000;
+        }
+
+        tr:hover {
+            background-color: #2f3640;
+        }
+
+        .status-paid {
+            color: #00b894;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: #d63031;
+            font-weight: bold;
+        }
+
+        .center-links {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .back-link {
+            color: #ffdd00;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #bbb;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Your Electricity Bills</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Bill ID</th>
+                <th>Month</th>
+                <th>Year</th>
+                <th>Meter Reading</th>
+                <th>Bill Amount</th>
+                <th>Due Amount</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bill : ${bills}">
+                <td th:text="${bill.billId}">T101</td>
+                <td th:text="${bill.month}">April</td>
+                <td th:text="${bill.billYear}">2025</td>
+                <td th:text="${bill.meterReading}">120</td>
+                <td th:text="${bill.billAmount}">₹600</td>
+                <td th:text="${bill.billAmount - bill.paidAmount}">₹100</td>
+                <td th:text="${bill.status}"
+                    th:classappend="${bill.status == 'Paid'} ? 'status-paid' : 'status-pending'">Paid</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="center-links">
+        <a href="/dashboard" class="back-link">← Back to Customer Dashboard</a>
+    </div>
+
+    <div class="footer">
+        © 2025 Electricity Management System
+    </div>
+</body>
+</html>

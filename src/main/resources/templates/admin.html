@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #2d3436, #000000);
+            color: #ecf0f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background: #1e272e;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            text-align: center;
+        }
+
+        h2 {
+            color: #f6e58d;
+            margin-bottom: 30px;
+        }
+
+        .admin-button {
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f6e58d;
+            color: #000;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .admin-button:hover {
+            background-color: #f9ca24;
+        }
+
+        .logout-link {
+            display: block;
+            margin-top: 20px;
+            color: #74b9ff;
+            text-decoration: none;
+        }
+
+        .logout-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Welcome, Admin</h2>
+
+    <a href="/addbill" class="admin-button">➕ Add New Bill</a>
+    <a href="/custlist" class="admin-button">📋 View Customer List</a>
+	<a href="/billlist" class="admin-button">📄 View All Bills</a>
+	
+    <a href="/login" class="logout-link">Logout</a>
+</div>
+
+</body>
+</html>
